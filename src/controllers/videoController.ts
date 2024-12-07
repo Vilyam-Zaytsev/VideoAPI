@@ -68,19 +68,8 @@ const videoController = {
             id: Math.floor(Date.now() + Math.random()),
             canBeDownloaded: true,
             minAgeRestriction: null,
-            // createdAt: new Date().toISOString(),
-            // publicationDate: new Date().toISOString(),
-
-            createdAt: (() => {
-                const currentDate = new Date(); // Текущая дата
-                currentDate.setDate(currentDate.getDate() + 1); // Добавляем 1 день
-                return currentDate.toISOString(); // Преобразуем в строку формата ISO
-            })(),
-            publicationDate: (() => {
-                const currentDate = new Date(); // Текущая дата
-                currentDate.setDate(currentDate.getDate() + 1); // Добавляем 1 день
-                return currentDate.toISOString(); // Преобразуем в строку формата ISO
-            })(),
+            createdAt: new Date().toISOString(),
+            publicationDate: new Date().toISOString(),
         };
         db.videos = [...db.videos, newVideo];
 
@@ -104,11 +93,14 @@ const videoController = {
             return;
         }
 
-        const title = req.body.title;
-        const author = req.body.author;
-        const availableResolutions = req.body.availableResolutions;
-        const canBeDownloaded = req.body.canBeDownloaded;
-        const minAgeRestriction = req.body.minAgeRestriction;
+        const {
+            title,
+            author,
+            availableResolutions,
+            canBeDownloaded,
+            minAgeRestriction,
+            publicationDate
+        } = req.body;
 
         titleFieldValidator(title, errors);
         authorFieldValidator(author, errors);
@@ -129,7 +121,7 @@ const videoController = {
         videoToUpdate.availableResolutions = availableResolutions;
         videoToUpdate.canBeDownloaded = canBeDownloaded;
         videoToUpdate.minAgeRestriction = minAgeRestriction;
-        videoToUpdate.publicationDate = new Date().toISOString();
+        videoToUpdate.publicationDate = publicationDate;
 
         db.videos = db.videos.map(v => v.id === videoId ? videoToUpdate : v);
 
