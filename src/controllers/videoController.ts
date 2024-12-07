@@ -1,6 +1,10 @@
 import {Request, Response} from "express";
 import {db} from "../db/db";
 import {InputVideoType, OutputVideoType} from "../types/video-types";
+import {titleFieldValidator} from "../validation/titleFieldValidator";
+import {errors} from "../validation/errors";
+import {authorFieldValidator} from "../validation/authorFieldValidator";
+import {availableResolutionsFieldValidator} from "../validation/availableResolutionsFieldValidator";
 
 const videoController = {
     getVideos: (
@@ -15,8 +19,23 @@ const videoController = {
     createVideo: (
         req: Request<any, any, InputVideoType>,
         res: Response<any, OutputVideoType>) => {
+        const title = req.body.title;
+        const author = req.body.author;
+        const availableResolutions = req.body.availableResolutions;
 
-        const newVideo = {
+        titleFieldValidator(title, errors);
+        authorFieldValidator(author, errors);
+        availableResolutionsFieldValidator(availableResolutions, errors);
+
+        if (errors.errorsMessages.length) {
+            res
+                .status(400)
+                .json(errors);
+
+            return;
+        }
+
+            const newVideo = {
             ...req.body,
             id: Date.now() + Math.random(),
             canBeDownloaded: true,
