@@ -136,8 +136,8 @@ const videoController = {
 
             res
                 .status(404)
-                .json(errors);
-
+                // .json(errors);
+                .end();
             return;
         }
 
