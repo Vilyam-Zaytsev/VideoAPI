@@ -61,13 +61,26 @@ const videoController = {
             return;
         }
 
+
+
         const newVideo = {
             ...req.body,
             id: Math.floor(Date.now() + Math.random()),
             canBeDownloaded: true,
             minAgeRestriction: null,
-            createdAt: new Date().toISOString(),
-            publicationDate: new Date().toISOString(),
+            // createdAt: new Date().toISOString(),
+            // publicationDate: new Date().toISOString(),
+
+            createdAt: (() => {
+                const currentDate = new Date(); // Текущая дата
+                currentDate.setDate(currentDate.getDate() + 1); // Добавляем 1 день
+                return currentDate.toISOString(); // Преобразуем в строку формата ISO
+            })(),
+            publicationDate: (() => {
+                const currentDate = new Date(); // Текущая дата
+                currentDate.setDate(currentDate.getDate() + 1); // Добавляем 1 день
+                return currentDate.toISOString(); // Преобразуем в строку формата ISO
+            })(),
         };
         db.videos = [...db.videos, newVideo];
 
