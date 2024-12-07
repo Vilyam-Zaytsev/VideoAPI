@@ -15,6 +15,7 @@ const videoController = {
     createVideo: (
         req: Request<any, any, InputVideoType>,
         res: Response<any, OutputVideoType>) => {
+
         const newVideo = {
             ...req.body,
             id: Date.now() + Math.random(),
