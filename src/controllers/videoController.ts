@@ -125,7 +125,28 @@ const videoController = {
             .end();
     },
     deleteVideo: (req: Request, res: Response) => {
+        const videoId = Number(req.params.id);
+        const videoToDelete = db.videos.find(v => v.id === videoId);
 
+        if (!videoToDelete) {
+            errors.errorsMessages.push({
+                message: 'There is no video with this ID',
+                field: 'ID'
+            });
+
+            res
+                .status(404)
+                .json(errors);
+
+            return;
+        }
+
+
+        db.videos = db.videos.filter(v => v.id !== videoId);
+
+        res
+            .status(204)
+            .end();
     },
 };
 
