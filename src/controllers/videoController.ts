@@ -72,7 +72,7 @@ const videoController = {
             id: Math.floor(Date.now() + Math.random()),
             title: titleClient,
             author: authorClient,
-            canBeDownloaded: false,
+            canBeDownloaded: true,
             minAgeRestriction: null,
             createdAt: new Date().toISOString(),
             publicationDate: new Date().toISOString(),
