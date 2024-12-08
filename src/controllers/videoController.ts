@@ -72,13 +72,13 @@ const videoController = {
             id: Math.floor(Date.now() + Math.random()),
             title: titleClient,
             author: authorClient,
-            canBeDownloaded: true,
+            canBeDownloaded: false,
             minAgeRestriction: null,
             createdAt: new Date().toISOString(),
             publicationDate: new Date().toISOString(),
             availableResolutions: availableResolutionsClient,
         };
-        db.videos = [...db.videos, newVideo];
+            q
 
         res
             .status(201)
