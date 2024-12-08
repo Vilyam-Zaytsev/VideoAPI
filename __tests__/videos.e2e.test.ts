@@ -213,6 +213,7 @@ describe('/videos', () => {
         });
     });
     it('POST should be successful if all values are correct.', async () => {
+        // setDB();
         const res = await req
             .post(SETTINGS.PATH.VIDEOS)
             .send({
@@ -240,5 +241,8 @@ describe('/videos', () => {
             .get(SETTINGS.PATH.VIDEOS)
             .expect(200, [res.body]);
 
+        await req
+            .get(`${SETTINGS.PATH.VIDEOS}/${res.body.id}`)
+            .expect(200, res.body);
     });
 })

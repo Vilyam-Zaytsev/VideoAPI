@@ -8,6 +8,7 @@ import {availableResolutionsFieldValidator} from "../validation/availableResolut
 import {canBeDownloadedValidator} from "../validation/canBeDownloadedValidator";
 import {minAgeRestrictionFieldValidator} from "../validation/minAgeRestrictionFieldValidator";
 import {ErrorsType} from "../types/errors-type";
+import {publicationDateFieldValidator} from "../validation/publicationDateFieldValidator";
 
 const videoController = {
     getVideos: (
@@ -34,6 +35,8 @@ const videoController = {
             res
                 .status(404)
                 .json(errors);
+
+            errors.errorsMessages = [];
 
             return;
         }
@@ -111,6 +114,7 @@ const videoController = {
         availableResolutionsFieldValidator(availableResolutions, errors);
         canBeDownloadedValidator(canBeDownloaded, errors);
         minAgeRestrictionFieldValidator(minAgeRestriction, errors);
+        publicationDateFieldValidator(publicationDate, errors);
 
         if (errors.errorsMessages.length) {
             res
