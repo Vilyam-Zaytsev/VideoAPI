@@ -6,10 +6,11 @@ const availableResolutionsFieldValidator = (
     errors: ErrorsType
 ) => {
     if (!Array.isArray(availableResolutions)
+        || availableResolutions.length === 0
         || availableResolutions.find(p => !Resolutions[p])
     ) {
         errors.errorsMessages.push({
-            message: 'The "available permissions" field contains invalid data.',
+            message: 'The "availableResolutions" field contains invalid data.',
             field: 'availableResolutions'
         });
 
