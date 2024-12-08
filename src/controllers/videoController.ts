@@ -48,13 +48,13 @@ const videoController = {
     createVideo: (
         req: Request<any, any, InputVideoType>,
         res: Response<any, OutputVideoType>) => {
-        const title = req.body.title;
-        const author = req.body.author;
-        const availableResolutions = req.body.availableResolutions;
+        const titleClient = req.body.title;
+        const authorClient = req.body.author;
+        const availableResolutionsClient = req.body.availableResolutions;
 
-        titleFieldValidator(title, errors);
-        authorFieldValidator(author, errors);
-        availableResolutionsFieldValidator(availableResolutions, errors);
+        titleFieldValidator(titleClient, errors);
+        authorFieldValidator(authorClient, errors);
+        availableResolutionsFieldValidator(availableResolutionsClient, errors);
 
         if (errors.errorsMessages.length) {
             res
@@ -69,12 +69,14 @@ const videoController = {
 
 
         const newVideo = {
-            ...req.body,
             id: Math.floor(Date.now() + Math.random()),
-            canBeDownloaded: true,
+            title: titleClient,
+            author: authorClient,
+            canBeDownloaded: false,
             minAgeRestriction: null,
             createdAt: new Date().toISOString(),
             publicationDate: new Date().toISOString(),
+            availableResolutions: availableResolutionsClient,
         };
         db.videos = [...db.videos, newVideo];
 
