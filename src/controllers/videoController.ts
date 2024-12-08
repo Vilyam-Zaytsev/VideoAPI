@@ -58,6 +58,8 @@ const videoController = {
                 .status(400)
                 .json(errors);
 
+            errors.errorsMessages = [];
+
             return;
         }
 
@@ -90,6 +92,8 @@ const videoController = {
                 .status(404)
                 .json(errors);
 
+            errors.errorsMessages = [];
+
             return;
         }
 
@@ -112,6 +116,8 @@ const videoController = {
             res
                 .status(400)
                 .json(errors);
+
+            errors.errorsMessages = [];
 
             return;
         }
@@ -143,6 +149,9 @@ const videoController = {
                 .status(404)
                 // .json(errors);
                 .end();
+
+            errors.errorsMessages = [];
+
             return;
         }
 
