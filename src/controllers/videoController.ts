@@ -78,7 +78,6 @@ const videoController = {
             publicationDate: new Date().toISOString(),
             availableResolutions: availableResolutionsClient,
         };
-            q
 
         res
             .status(201)
