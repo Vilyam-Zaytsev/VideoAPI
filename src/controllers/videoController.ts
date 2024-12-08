@@ -79,6 +79,8 @@ const videoController = {
             availableResolutions: availableResolutionsClient,
         };
 
+        db.videos = [...db.videos, newVideo];
+
         res
             .status(201)
             .json(newVideo);
