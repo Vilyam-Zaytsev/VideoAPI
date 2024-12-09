@@ -6,7 +6,7 @@ const publicationDateFieldValidator = (
 ) => {
     const date = new Date(publicationDate);
 
-    if (isNaN(date.getTime()) || date > new Date()) {
+    if (isNaN(date.getTime())) {
         errors.errorsMessages.push({
             message: 'Invalid date value.',
             field: 'publicationDate'
