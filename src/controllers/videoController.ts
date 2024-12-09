@@ -9,6 +9,7 @@ import {canBeDownloadedValidator} from "../validation/canBeDownloadedValidator";
 import {minAgeRestrictionFieldValidator} from "../validation/minAgeRestrictionFieldValidator";
 import {ErrorsType} from "../types/errors-type";
 import {publicationDateFieldValidator} from "../validation/publicationDateFieldValidator";
+import {addDays} from "../utils/utils";
 
 const videoController = {
     getVideos: (
@@ -66,7 +67,8 @@ const videoController = {
             return;
         }
 
-
+        const creationDate = new Date();
+        const publicationDate = addDays(creationDate, 1);
 
         const newVideo = {
             id: Math.floor(Date.now() + Math.random()),
@@ -74,10 +76,12 @@ const videoController = {
             author: authorClient,
             canBeDownloaded: false,
             minAgeRestriction: null,
-            createdAt: new Date().toISOString(),
-            publicationDate: new Date().toISOString(),
+            createdAt: creationDate.toISOString(),
+            publicationDate: publicationDate.toISOString(),
             availableResolutions: availableResolutionsClient,
         };
+
+        addDays(newVideo.publicationDate, 1);
 
         db.videos = [...db.videos, newVideo];
 
